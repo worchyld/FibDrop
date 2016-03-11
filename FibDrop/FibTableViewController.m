@@ -12,6 +12,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 
 static const CGFloat kTableRowHeight = 44.0f;
+static const CGFloat kInitialAnimationDelta = 0.5f;
+static const CGFloat kFadeInAnimationDelta = 1.5f;
 
 @interface FibTableViewController ()
 @property (nonatomic, strong) NSArray *objects;
@@ -66,12 +68,35 @@ static const CGFloat kTableRowHeight = 44.0f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FibCustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FibSegmentCellReuseID forIndexPath:indexPath];
-
-    NSNumber *item = [self.objects objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld", [item longValue]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self configureCell:cell atIndexPath:indexPath];
 
     return cell;
 }
+
+- (void) configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    NSNumber *item = [self.objects objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld", [item longValue]];
+    cell.alpha = 0;
+
+    // Animate imageview setup
+    [UIView animateWithDuration:kInitialAnimationDelta animations:^{
+
+        cell.alpha = 0;
+        
+    } completion:^(BOOL finished) {
+        if (finished == YES)
+        {
+            // Fade in animation
+            [UIView animateWithDuration:kFadeInAnimationDelta animations:^{
+                cell.alpha = 1;
+            }];
+        }
+    }];
+
+}
+
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -12,10 +12,21 @@ NSString *const FibSegmentCellReuseID = @"fibCellReuseId";
 
 @implementation FibCustomTableViewCell
 
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.textLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:16];
+        self.textLabel.textColor = [UIColor colorWithWhite:0.498 alpha:1.000];
+
+    }
+    return self;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.textLabel.font = [UIFont fontWithName:@"Georgia" size:16];
 }
 
 - (void) prepareForReuse
@@ -26,6 +37,7 @@ NSString *const FibSegmentCellReuseID = @"fibCellReuseId";
 - (void) layoutSubviews
 {
     [super layoutSubviews];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
