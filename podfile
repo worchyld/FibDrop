@@ -1,0 +1,10 @@
+platform :ios, '8.0'
+use_frameworks!
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'FibDrop' do
+	pod 'CocoaLumberjack', '~> 2.2'
+	pod 'Colours', '~> 5.12'
+	pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
+end
